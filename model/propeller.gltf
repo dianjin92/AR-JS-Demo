@@ -1,0 +1,651 @@
+{
+    "asset": {
+        "generator": "FBX2glTF",
+        "version": "2.0"
+    },
+    "scene": 0,
+    "buffers": [
+        {
+            "byteLength": 3212360,
+            "uri": "buffer.bin"
+        }
+    ],
+    "bufferViews": [
+        {
+            "buffer": 0,
+            "byteLength": 204,
+            "byteOffset": 0
+        },
+        {
+            "buffer": 0,
+            "byteLength": 816,
+            "byteOffset": 204
+        },
+        {
+            "buffer": 0,
+            "byteLength": 804,
+            "byteOffset": 1020
+        },
+        {
+            "buffer": 0,
+            "byteLength": 3216,
+            "byteOffset": 1824
+        },
+        {
+            "buffer": 0,
+            "byteLength": 244,
+            "byteOffset": 5040
+        },
+        {
+            "buffer": 0,
+            "byteLength": 976,
+            "byteOffset": 5284
+        },
+        {
+            "buffer": 0,
+            "byteLength": 59196,
+            "byteOffset": 6260,
+            "target": 34963
+        },
+        {
+            "buffer": 0,
+            "byteLength": 352440,
+            "byteOffset": 65456,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteLength": 352440,
+            "byteOffset": 417896,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteLength": 234960,
+            "byteOffset": 770336,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteLength": 82692,
+            "byteOffset": 1005296,
+            "target": 34963
+        },
+        {
+            "buffer": 0,
+            "byteLength": 496152,
+            "byteOffset": 1087988,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteLength": 496152,
+            "byteOffset": 1584140,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteLength": 330768,
+            "byteOffset": 2080292,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteLength": 46800,
+            "byteOffset": 2411060,
+            "target": 34963
+        },
+        {
+            "buffer": 0,
+            "byteLength": 280308,
+            "byteOffset": 2457860,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteLength": 280308,
+            "byteOffset": 2738168,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteLength": 186872,
+            "byteOffset": 3018476,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteLength": 420,
+            "byteOffset": 3205348,
+            "target": 34963
+        },
+        {
+            "buffer": 0,
+            "byteLength": 2472,
+            "byteOffset": 3205768,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteLength": 2472,
+            "byteOffset": 3208240,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteLength": 1648,
+            "byteOffset": 3210712,
+            "target": 34962
+        }
+    ],
+    "scenes": [
+        {
+            "name": "Root Scene",
+            "nodes": [
+                0
+            ]
+        }
+    ],
+    "accessors": [
+        {
+            "componentType": 5126,
+            "type": "SCALAR",
+            "count": 51,
+            "bufferView": 0,
+            "byteOffset": 0,
+            "min": [
+                0.0
+            ],
+            "max": [
+                2.08333325386047
+            ]
+        },
+        {
+            "componentType": 5126,
+            "type": "VEC4",
+            "count": 51,
+            "bufferView": 1,
+            "byteOffset": 0
+        },
+        {
+            "componentType": 5126,
+            "type": "SCALAR",
+            "count": 201,
+            "bufferView": 2,
+            "byteOffset": 0,
+            "min": [
+                0.0
+            ],
+            "max": [
+                8.33333301544189
+            ]
+        },
+        {
+            "componentType": 5126,
+            "type": "VEC4",
+            "count": 201,
+            "bufferView": 3,
+            "byteOffset": 0
+        },
+        {
+            "componentType": 5126,
+            "type": "SCALAR",
+            "count": 61,
+            "bufferView": 4,
+            "byteOffset": 0,
+            "min": [
+                0.0
+            ],
+            "max": [
+                2.5
+            ]
+        },
+        {
+            "componentType": 5126,
+            "type": "VEC4",
+            "count": 61,
+            "bufferView": 5,
+            "byteOffset": 0
+        },
+        {
+            "componentType": 5123,
+            "type": "SCALAR",
+            "count": 29598,
+            "bufferView": 6,
+            "byteOffset": 0
+        },
+        {
+            "componentType": 5126,
+            "type": "VEC3",
+            "count": 29370,
+            "bufferView": 7,
+            "byteOffset": 0,
+            "min": [
+                -0.895818054676056,
+                -8.00220394134521,
+                -7.33931398391724
+            ],
+            "max": [
+                1.90418183803558,
+                7.99779510498047,
+                7.33822631835938
+            ]
+        },
+        {
+            "componentType": 5126,
+            "type": "VEC3",
+            "count": 29370,
+            "bufferView": 8,
+            "byteOffset": 0
+        },
+        {
+            "componentType": 5126,
+            "type": "VEC2",
+            "count": 29370,
+            "bufferView": 9,
+            "byteOffset": 0
+        },
+        {
+            "componentType": 5123,
+            "type": "SCALAR",
+            "count": 41346,
+            "bufferView": 10,
+            "byteOffset": 0
+        },
+        {
+            "componentType": 5126,
+            "type": "VEC3",
+            "count": 41346,
+            "bufferView": 11,
+            "byteOffset": 0,
+            "min": [
+                -0.445499092340469,
+                -8.00120449066162,
+                -7.3386435508728
+            ],
+            "max": [
+                0.348831862211227,
+                7.99679565429688,
+                7.33755588531494
+            ]
+        },
+        {
+            "componentType": 5126,
+            "type": "VEC3",
+            "count": 41346,
+            "bufferView": 12,
+            "byteOffset": 0
+        },
+        {
+            "componentType": 5126,
+            "type": "VEC2",
+            "count": 41346,
+            "bufferView": 13,
+            "byteOffset": 0
+        },
+        {
+            "componentType": 5123,
+            "type": "SCALAR",
+            "count": 23400,
+            "bufferView": 14,
+            "byteOffset": 0
+        },
+        {
+            "componentType": 5126,
+            "type": "VEC3",
+            "count": 23359,
+            "bufferView": 15,
+            "byteOffset": 0,
+            "min": [
+                -0.250818103551865,
+                -9.00220394134521,
+                -7.99500370025635
+            ],
+            "max": [
+                1.65418183803558,
+                8.99779510498047,
+                7.99391603469849
+            ]
+        },
+        {
+            "componentType": 5126,
+            "type": "VEC3",
+            "count": 23359,
+            "bufferView": 16,
+            "byteOffset": 0
+        },
+        {
+            "componentType": 5126,
+            "type": "VEC2",
+            "count": 23359,
+            "bufferView": 17,
+            "byteOffset": 0
+        },
+        {
+            "componentType": 5123,
+            "type": "SCALAR",
+            "count": 210,
+            "bufferView": 18,
+            "byteOffset": 0
+        },
+        {
+            "componentType": 5126,
+            "type": "VEC3",
+            "count": 206,
+            "bufferView": 19,
+            "byteOffset": 0,
+            "min": [
+                -1.3958181142807,
+                -0.452204585075378,
+                -0.450543820858002
+            ],
+            "max": [
+                -0.895818054676056,
+                0.447795391082764,
+                0.44945615530014
+            ]
+        },
+        {
+            "componentType": 5126,
+            "type": "VEC3",
+            "count": 206,
+            "bufferView": 20,
+            "byteOffset": 0
+        },
+        {
+            "componentType": 5126,
+            "type": "VEC2",
+            "count": 206,
+            "bufferView": 21,
+            "byteOffset": 0
+        }
+    ],
+    "samplers": [
+        {}
+    ],
+    "materials": [
+        {
+            "name": "Steel Rough",
+            "alphaMode": "OPAQUE",
+            "extras": {
+                "fromFBX": {
+                    "shadingModel": "Phong",
+                    "isTruePBR": false
+                }
+            },
+            "pbrMetallicRoughness": {
+                "baseColorFactor": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "metallicFactor": 0.400000005960464,
+                "roughnessFactor": 0.415087103843689
+            }
+        },
+        {
+            "name": "Paint Gloss Black #1",
+            "alphaMode": "OPAQUE",
+            "extras": {
+                "fromFBX": {
+                    "shadingModel": "Phong",
+                    "isTruePBR": false
+                }
+            },
+            "pbrMetallicRoughness": {
+                "baseColorFactor": [
+                    0.0219608005136251,
+                    0.0219608005136251,
+                    0.0219608005136251,
+                    1.0
+                ],
+                "metallicFactor": 0.400000005960464,
+                "roughnessFactor": 0.415087103843689
+            }
+        },
+        {
+            "name": "Paint Gloss Yellow",
+            "alphaMode": "OPAQUE",
+            "extras": {
+                "fromFBX": {
+                    "shadingModel": "Phong",
+                    "isTruePBR": false
+                }
+            },
+            "pbrMetallicRoughness": {
+                "baseColorFactor": [
+                    0.783996045589447,
+                    0.672276020050049,
+                    0.0391973629593849,
+                    1.0
+                ],
+                "metallicFactor": 0.400000005960464,
+                "roughnessFactor": 0.415087103843689
+            }
+        },
+        {
+            "name": "Paint Gloss Black",
+            "alphaMode": "OPAQUE",
+            "extras": {
+                "fromFBX": {
+                    "shadingModel": "Phong",
+                    "isTruePBR": false
+                }
+            },
+            "pbrMetallicRoughness": {
+                "baseColorFactor": [
+                    0.0219608005136251,
+                    0.0219608005136251,
+                    0.0219608005136251,
+                    1.0
+                ],
+                "metallicFactor": 0.400000005960464,
+                "roughnessFactor": 0.415087103843689
+            }
+        }
+    ],
+    "meshes": [
+        {
+            "name": "Propeller from airboat",
+            "primitives": [
+                {
+                    "material": 0,
+                    "mode": 4,
+                    "attributes": {
+                        "NORMAL": 8,
+                        "POSITION": 7,
+                        "TEXCOORD_0": 9
+                    },
+                    "indices": 6
+                },
+                {
+                    "material": 1,
+                    "mode": 4,
+                    "attributes": {
+                        "NORMAL": 12,
+                        "POSITION": 11,
+                        "TEXCOORD_0": 13
+                    },
+                    "indices": 10
+                },
+                {
+                    "material": 2,
+                    "mode": 4,
+                    "attributes": {
+                        "NORMAL": 16,
+                        "POSITION": 15,
+                        "TEXCOORD_0": 17
+                    },
+                    "indices": 14
+                },
+                {
+                    "material": 3,
+                    "mode": 4,
+                    "attributes": {
+                        "NORMAL": 20,
+                        "POSITION": 19,
+                        "TEXCOORD_0": 21
+                    },
+                    "indices": 18
+                }
+            ]
+        }
+    ],
+    "animations": [
+        {
+            "name": "Propeller from airboat|Propeller from airboatAction",
+            "channels": [
+                {
+                    "sampler": 0,
+                    "target": {
+                        "node": 1,
+                        "path": "rotation"
+                    }
+                }
+            ],
+            "samplers": [
+                {
+                    "input": 0,
+                    "interpolation": "LINEAR",
+                    "output": 1
+                }
+            ]
+        },
+        {
+            "name": "Propeller from airboat|Propeller from airboat|Propeller from airboat|Propeller fro.000",
+            "channels": [
+                {
+                    "sampler": 0,
+                    "target": {
+                        "node": 1,
+                        "path": "rotation"
+                    }
+                }
+            ],
+            "samplers": [
+                {
+                    "input": 2,
+                    "interpolation": "LINEAR",
+                    "output": 3
+                }
+            ]
+        },
+        {
+            "name": "Propeller from airboat|Propeller from airboat|Propeller from airboat|Propeller from ai",
+            "channels": [
+                {
+                    "sampler": 0,
+                    "target": {
+                        "node": 1,
+                        "path": "rotation"
+                    }
+                }
+            ],
+            "samplers": [
+                {
+                    "input": 4,
+                    "interpolation": "LINEAR",
+                    "output": 5
+                }
+            ]
+        }
+    ],
+    "cameras": [
+        {
+            "name": "",
+            "type": "perspective",
+            "perspective": {
+                "znear": 10.0,
+                "zfar": 10000.0,
+                "aspectRatio": 1.77777779102325,
+                "yfov": 0.857556045055389
+            }
+        }
+    ],
+    "nodes": [
+        {
+            "name": "RootNode",
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "children": [
+                1,
+                2,
+                3
+            ]
+        },
+        {
+            "name": "Propeller from airboat",
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.188965007662773,
+                0.682246744632721,
+                -0.186473727226257,
+                0.681218922138214
+            ],
+            "scale": [
+                0.0999987199902534,
+                0.0999987050890923,
+                0.0999987125396729
+            ],
+            "mesh": 0
+        },
+        {
+            "name": "Lamp",
+            "translation": [
+                4.07624530792236,
+                5.90386199951172,
+                -1.00545394420624
+            ],
+            "rotation": [
+                0.169075712561607,
+                0.755880355834961,
+                -0.272171318531036,
+                0.570947468280792
+            ],
+            "scale": [
+                100.000007629395,
+                100.0,
+                100.0
+            ]
+        },
+        {
+            "name": "Camera",
+            "translation": [
+                7.4811315536499,
+                5.34366512298584,
+                6.50763940811157
+            ],
+            "rotation": [
+                -0.212557286024094,
+                0.90479701757431,
+                -0.084389366209507,
+                0.35922172665596
+            ],
+            "scale": [
+                100.0,
+                100.000007629395,
+                99.9999923706055
+            ],
+            "camera": 0
+        }
+    ]
+}

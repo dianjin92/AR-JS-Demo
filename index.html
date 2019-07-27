@@ -1,0 +1,146 @@
+<!doctype HTML>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+    <script src="https://google-ar.github.io/three.ar.js/dist/three.ar.js"></script>
+    <!-- <script src="https://threejs.org/build/three.js"></script> -->
+    <script src="https://rawgit.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
+    <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+
+
+
+    <script type="text/javascript">
+        AFRAME.registerComponent('markerhandler', {
+
+        init: function() {
+            const animatedMarker = document.querySelector("#the-barcode");
+            const aEntity = document.querySelector("#animated-model");
+            counter = 0;
+
+            animatedMarker.addEventListener('click', 
+            function(ev, target){
+                const intersectedElement = ev && ev.detail && ev.detail.intersectedEl;
+                if (aEntity && intersectedElement === aEntity) {
+                    ++counter;
+                    console.clear();
+                    console.log("Clicked:", counter);
+                    console.log("Point: ", ev.detail.intersection.point);
+                    // console.log("Face: ", ev.detail.intersection.face);
+                    // alert("Coords x: " + ev.detail.intersection.point['x'] +
+                    //     "\n\nCoords y: " + ev.detail.intersection.point['y'] +
+                    //     "\n\nCoords z: " + ev.detail.intersection.point['z']);
+                    // alert("hihihi");
+
+                    // window.location.replace("http://stackoverflow.com");
+
+                    // const scale = aEntity.getAttribute('scale');
+                    // Object.keys(scale).forEach((key) => scale[key] = scale[key] + 0.001);
+                    // aEntity.setAttribute('scale', scale);
+                }
+            });
+        }});
+    </script>
+
+    <script type="text/javascript">
+    AFRAME.registerComponent('drag-rotate-component', {
+        schema: {
+            speed: {
+                default: 3
+            }
+        },
+        init: function() {
+            this.a = false;
+            this.x_cord = 0;
+            this.y_cord = 0;
+            document.addEventListener('mousedown', this.OnDocumentMouseDown.bind(this));
+            document.addEventListener('mouseup', this.OnDocumentMouseUp.bind(this));
+            document.addEventListener('mousemove', this.OnDocumentMouseMove.bind(this));
+        },
+        OnDocumentMouseDown: function(event) {
+            this.a = true;
+            this.x_cord = event.clientX;
+            this.y_cord = event.clientY;
+        },
+        OnDocumentMouseUp: function() {
+            this.a = false;
+        },
+        OnDocumentMouseMove: function(event) {
+            if (this.a) {
+                var temp_x = event.clientX - this.x_cord;
+                var temp_y = event.clientY - this.y_cord;
+                if (Math.abs(temp_y) < Math.abs(temp_x)) {
+                    this.el.object3D.rotateY(temp_x * this.data.speed / 1000);
+                } else {
+                    this.el.object3D.rotateX(temp_y * this.data.speed / 1000);
+                }
+                this.x_cord = event.clientX;
+                this.y_cord = event.clientY;
+            }
+        }
+    });
+    </script>
+
+
+    <script>
+    
+    function setAttribute() {
+        console.clear();
+        console.log("Console cleared");
+        var theObject = document.querySelectorAll('a-entity')[0].object3D;
+        console.log("The object ", theObject.el, " : ", theObject)
+
+        theObject.scale.set(0.0025, 0.0025, 0.0025)
+
+
+    }
+    </script>
+
+</head>
+
+
+
+
+<body style='margin : 0px; overflow: hidden;' onload="setAttribute()">
+    <a-scene ar embedded vr-mode-ui="enabled: false" arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
+
+        <a-assets>
+            <a-asset-item id="sta" src="model/example.gltf"></a-asset-item>
+        </a-assets>
+
+        <!-- <a-marker emitevents="true" cursor="rayOrigin: mouse" id="animated-marker" type="barcode" value="6">
+            <a-entity markerhandler id="animated-model" gltf-model="#sta" scale="0.005 0.005 0.005" rotation="0 0 0"></a-entity>
+        </a-marker> -->
+
+        <a-marker id="the-barcode" type="barcode" value="6">
+            <a-entity 
+                markerhandler 
+                drag-rotate-component 
+                emitevents="true" 
+                cursor="rayOrigin: mouse" 
+                id="animated-model" 
+                gltf-model="#sta" 
+                rotation="0 0 0">
+            </a-entity>
+            
+            <a-entity 
+                markerhandler 
+                drag-rotate-component 
+                emitevents="true" 
+                cursor="rayOrigin: mouse"
+                geometry="primitive: box; width: 1; height: 1; depth: 1" 
+                position="0 0 0" 
+                scale="1 1 1" 
+                material="opacity: 0.2; color: blue;">
+            </a-entity>
+        </a-marker>
+
+        <a-entity camera>
+        </a-entity>
+
+    </a-scene>
+
+</body>
+
+</html>
