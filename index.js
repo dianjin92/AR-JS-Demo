@@ -66,15 +66,18 @@ AFRAME.registerComponent("click_component", {
     theElement = document.querySelector("#" + this.el.id);
 
     theElement.addEventListener("click", function(theEvent) {
-      console.log(
-        "The item clicked is: #" +
-          theEvent.target.id +
-          "\nProperties can be used: ", theEvent);
+    //   console.log(
+    //     "\n\nItem clicked: " +
+    //       theEvent.target.id +
+	// 	  "\n\ntheEvent: ", theEvent,
+	// 	  "\n\n3D Properties: ", document.querySelector("#" + theEvent.target.id).object3D,
+	// 	  "\n\ntheElement: ", document.querySelector("#" + theEvent.target.id));
+		console.log("Item clicked: ", theEvent.target.id);
     });
 
     theElement.addEventListener("mouseenter", function(theEvent) {
-      console.log("intersected!!!");
-      console.log("Current Coords: ", theEvent.detail.intersection.point);
+      console.log("intersected:", theEvent.target.id);
+    //   console.log("Current Coords: ", theEvent.detail.intersection.point);
     });
   }
 });
@@ -136,7 +139,7 @@ AFRAME.registerComponent("set_scale_component", {
 });
 
 
-AFRAME.registerComponent("check_scale", {
+AFRAME.registerComponent("list_properties", {
   init: function() {
 
 		allEntityList = document.querySelectorAll("a-entity");
@@ -145,7 +148,11 @@ AFRAME.registerComponent("check_scale", {
 		for(theEntity of allEntityList) {
 
 			if(!theEntity.id == ""){
-				console.log("id:", theEntity.id, "\nscale:", theEntity.object3D.scale);
+
+				console.log("id:", theEntity.id, 
+							"\nscale:", theEntity.object3D.scale, 
+							"\ncomponents:", document.querySelector("#" + theEntity.id).components,
+							"\nproperties:", theEntity.object3D);
 			}
 		}
     }
@@ -198,3 +205,4 @@ AFRAME.registerComponent("markerhandler", {
     });
   }
 });
+
