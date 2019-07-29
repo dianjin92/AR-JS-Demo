@@ -59,6 +59,8 @@ AFRAME.registerComponent('resize', {
 AFRAME.registerComponent("click_component", {
     init: function () {
         console.log("object registered with 'click_component': ", this.el.id);
+        
+        var model = document.getElementById('parentBox');
 
         // retrieving the model by its ID
         theElement = document.querySelector("#" + this.el.id);
@@ -70,7 +72,29 @@ AFRAME.registerComponent("click_component", {
             // 	  "\n\ntheEvent: ", theEvent,
             // 	  "\n\n3D Properties: ", document.querySelector("#" + theEvent.target.id).object3D,
             // 	  "\n\ntheElement: ", document.querySelector("#" + theEvent.target.id));
-            alert("Item clicked: " + theEvent.target.id);
+            console.log("Item clicked: ", theEvent.target.id);
+            
+            let rotation = model.getAttribute("rotation");
+
+            switch (theEvent.target.id) {
+                case "up_arrow":
+                    rotation.z += 90;
+                    break;
+                case "down_arrow":
+                    rotation.z -= 90;
+                    break;
+                case "left_arrow":
+                    rotation.x += 90;
+                    break;
+                case "right_arrow":
+                    rotation.x -= 90;
+                    break;
+                default:
+                    break;
+            }
+            
+            model.setAttribute('rotation', rotation);
+
         });
 
         theElement.addEventListener("mouseenter", function (theEvent) {
@@ -80,73 +104,35 @@ AFRAME.registerComponent("click_component", {
     }
 });
 
-//AFRAME.registerComponent("drag-rotate-component", {
-//  schema: {
-//    speed: {
-//      default: 3
-//    }
-//  },
-//  init: function() {
-//    console.log("object registered with 'drag-rotate-component': ", this.el.id);
-//    this.a = false;
-//    this.x_cord = 0;
-//    this.y_cord = 0;
-//    document.addEventListener("mousedown", this.OnDocumentMouseDown.bind(this));
-//    document.addEventListener("mouseup", this.OnDocumentMouseUp.bind(this));
-//    document.addEventListener("mousemove", this.OnDocumentMouseMove.bind(this));
-//  },
-//  OnDocumentMouseDown: function(event) {
-//    this.a = true;
-//    this.x_cord = event.clientX;
-//    this.y_cord = event.clientY;
-//  },
-//  OnDocumentMouseUp: function() {
-//    this.a = false;
-//  },
-//  OnDocumentMouseMove: function(event) {
-//    if (this.a) {
-//      var temp_x = event.clientX - this.x_cord;
-//      var temp_y = event.clientY - this.y_cord;
-//      if (Math.abs(temp_y) < Math.abs(temp_x)) {
-//        this.el.object3D.rotateY((temp_x * this.data.speed) / 1000);
-//      } else {
-//        this.el.object3D.rotateX((temp_y * this.data.speed) / 1000);
-//      }
-//      this.x_cord = event.clientX;
-//      this.y_cord = event.clientY;
-//    }
-//  }
-//});
-
 
 AFRAME.registerComponent("pan-rotate-component", {
     init: function () {
         var element = document.querySelector('body');
-        var model = document.getElementById('parentBox');
+        var model = document.getElementById('arrow_container');
         var hammertime = new Hammer(element);
         var pinch = new Hammer.Pinch(); // Pinch is not by default in the recognisers
         hammertime.add(pinch); // add it to the Manager instance
 
-        hammertime.on('pan', (ev) => {
-            let containerRotation = model.getAttribute("rotation");
-            switch (ev.direction) {
-                case 2:
-                    containerRotation.y = containerRotation.y + 4
-                    break;
-                case 4:
-                    containerRotation.y = containerRotation.y - 4
-                    break;
-                case 8:
-                    containerRotation.x = containerRotation.x + 4
-                    break;
-                case 16:
-                    containerRotation.x = containerRotation.x - 4
-                    break;
-                default:
-                    break;
-            }
-            model.setAttribute("rotation", containerRotation);
-        });
+//        hammertime.on('pan', (ev) => {
+//            let containerRotation = model.getAttribute("rotation");
+//            switch (ev.direction) {
+//                case 2:
+//                    containerRotation.y = containerRotation.y + 4
+//                    break;
+//                case 4:
+//                    containerRotation.y = containerRotation.y - 4
+//                    break;
+//                case 8:
+//                    containerRotation.x = containerRotation.x + 4
+//                    break;
+//                case 16:
+//                    containerRotation.x = containerRotation.x - 4
+//                    break;
+//                default:
+//                    break;
+//            }
+//            model.setAttribute("rotation", containerRotation);
+//        });
 
         hammertime.on("pinch", (ev) => {
             let scale = {
