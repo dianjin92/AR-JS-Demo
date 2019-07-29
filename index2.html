@@ -13,8 +13,8 @@
 
 </head>
 
-<body style='margin : 0px; overflow: hidden;' onload="setAttribute()">
-    <a-scene ar embedded vr-mode-ui="enabled: false" arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
+<body style='margin : 0px; overflow: hidden;'>
+    <a-scene check_scale ar embedded vr-mode-ui="enabled: false" arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
 
         <a-assets>
             <a-asset-item id="sta" src="model/example.gltf"></a-asset-item>
@@ -29,28 +29,38 @@
         </a-marker> -->
 
         <a-marker cursor="rayOrigin: mouse" raycaster="objects: .clickable;" emitevents="true" id="the-barcode" type="barcode" value="6">
-            <a-entity 
-                id="theModel"
-                class="clickable"
-                click_component
-                gltf-model="#sta" 
-                rotation="0 0 0">
-            </a-entity>
-            <!-- 
-                drag-rotate-component  -->
+            
+
 
             <a-entity 
-                id="geometryBox"
-                class="clickable"
-                markerhandler 
-                click_component
+            
                 geometry="primitive: box; width: 1; height: 1; depth: 1" 
-                position="0 0 0" 
-                scale="1 1 1" 
-                material="opacity: 0.2; color: blue;">  
+                
+                id="geometryBox"
+
+
+                drag-rotate-component
+                click_component
+                check_size
+                material="opacity: 0.2; 
+                        color: blue;">
+                    
+                <a-entity 
+                    gltf-model="#sta"
+
+                    id="STA_Model"
+                    class="clickable"
+                    check_size
+                    resize='axis:x; value:0.5'
+                    >
+                </a-entity>
+                <!-- 
+                    set_scale_component 
+                    resize='axis:x; value:1'
+                -->
+
             </a-entity>
-            <!-- 
-                drag-rotate-component  -->
+
 
         </a-marker>
 
