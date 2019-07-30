@@ -16,7 +16,7 @@
 </head>
 
 <body style='margin : 0px; overflow: hidden;'>
-    <a-scene list_properties ar embedded vr-mode-ui="enabled: false" arjs='trackingMethod: best; sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
+    <a-scene onload_activity list_properties ar embedded vr-mode-ui="enabled: false" arjs='trackingMethod: best; sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
 
         <a-assets>
             <a-asset-item id="sta" src="model/example.gltf"></a-asset-item>
@@ -37,28 +37,80 @@
                     opacity: 0.2; 
                     color: blue;">
 
-                <a-entity id="STA_Model" gltf-model="#sta" class="clickable" check_size resize='axis:x; value: 1;' position="0 -0.25 0">
+                <a-entity 
+                    id="STA_Model" 
+                    gltf-model="#sta" 
+                    class="clickable" 
+                    resize='axis:x; value: 1;' 
+                    position="0 -0.25 0">
                 </a-entity>
 
-                <a-entity id="top_Diameter" geometry="primitive: circle; radius: 0.29" class="clickable" check_size scale="0.25 0.25 0.25" position="0 0.33 0" rotation="90 0 0" material="
+                <a-entity 
+                    id="top_Diameter" 
+                    geometry="primitive: circle; radius: 0.29" 
+                    class="clickable" 
+                    scale="0.25 0.25 0.25" 
+                    position="0 0.33 0" 
+                    rotation="90 0 0" 
+                    material="
                         opacity: 1;
                         color: red;
                         side: double;
                         visible: false;">
                 </a-entity>
 
-                <a-entity id="top_Flatness" geometry="primitive: ring; radiusInner: 0.35; radiusOuter: 1.145" class="clickable" check_size scale="0.20 0.20 0.20" position="0 0.32 0" rotation="90 0 0" material="
+                <a-entity 
+                    id="top_Flatness" 
+                    geometry="primitive: ring; radiusInner: 0.35; radiusOuter: 1.145" 
+                    class="clickable" 
+                    scale="0.20 0.20 0.20" 
+                    position="0 0.32 0" 
+                    rotation="90 0 0" 
+                    material="
                         opacity: 0.5;
                         color: yellow;
                         side: double;
                         visible: true;">
                 </a-entity>
 
-                <a-entity id="bottom_Diameter" geometry="primitive: circle; radius: 0.29" class="clickable" check_size scale="0.25 0.25 0.25" position="0 -0.34 0" rotation="90 0 0" material="
+                <a-entity 
+                    id="bottom_Diameter" 
+                    geometry="primitive: circle; radius: 0.29" 
+                    class="clickable" 
+                    scale="0.25 0.25 0.25" 
+                    position="0 -0.34 0" 
+                    rotation="90 0 0" 
+                    material="
                         opacity: 0.6;
                         color: blue;
                         side: double;
                         visible: true;">
+                </a-entity>
+
+                <a-entity 
+                    id="the_word_front" 
+                    text="
+                        value: Measure Diameter or Flatness;
+                        color: white;
+                        side: front;"
+                    scale="5 5 5" 
+                    position="1 0 -2" 
+                    rotation="-90 0 90" 
+
+                    >
+                </a-entity>
+
+                <a-entity 
+                    id="the_word_back" 
+                    text="
+                        value: Measure Diameter;
+                        color: white;
+                        side: front;"
+                    scale="5 5 5" 
+                    position="-1 0 -2" 
+                    rotation="90 0 -90" 
+
+                    >
                 </a-entity>
                 <!-- higher negative position to -1 will bring blue circle out of model -->
 

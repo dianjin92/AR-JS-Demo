@@ -1,3 +1,17 @@
+AFRAME.registerComponent('onload_activity', {
+    init: function () {
+        let theSceneElement = this.el;
+
+        console.log("scene?", theSceneElement);
+
+        theSceneElement.addEventListener('loaded', function (theEvent) {
+            console.log("all loaded!");
+
+            // trying to fix the onload interacted issue with this function
+        });
+    }
+});
+
 AFRAME.registerComponent('check_size', {
     init: function () {
         var el = this.el;
@@ -66,14 +80,26 @@ AFRAME.registerComponent("click_component", {
         theElement = document.querySelector("#" + this.el.id);
 
         theElement.addEventListener("click", function (theEvent) {
-            //   console.log(
-            //     "\n\nItem clicked: " +
-            //       theEvent.target.id +
-            // 	  "\n\ntheEvent: ", theEvent,
-            // 	  "\n\n3D Properties: ", document.querySelector("#" + theEvent.target.id).object3D,
-            // 	  "\n\ntheElement: ", document.querySelector("#" + theEvent.target.id));
+
+            // console.log(
+            // "\n\nItem clicked: " +
+            //     theEvent.target.id +
+            //     "\n\ntheEvent: ", theEvent,
+            //     "\n\n3D Properties: ", document.querySelector("#" + theEvent.target.id).object3D,
+            //     "\n\ntheElement: ", document.querySelector("#" + theEvent.target.id));
+
             console.log("Item clicked: ", theEvent.target.id);
             
+            // console.log("visible: ", document.querySelector("#" + theEvent.target.id).getDOMAttribute('material').visible);
+            if(document.querySelector("#" + theEvent.target.id).getDOMAttribute('material').visible == "true"){
+                // console.log("setting visibility to false");
+                document.querySelector("#" + theEvent.target.id).setAttribute('material', 'visible', 'false');
+            }
+            else{
+                // console.log("setting visibility to true");
+                document.querySelector("#" + theEvent.target.id).setAttribute('material', 'visible', 'true');
+            }
+
             let rotation = model.getAttribute("rotation");
 
             switch (theEvent.target.id) {
@@ -98,7 +124,7 @@ AFRAME.registerComponent("click_component", {
         });
 
         theElement.addEventListener("mouseenter", function (theEvent) {
-            console.log("intersected:", theEvent.target.id);
+            // console.log("intersected:", theEvent.target.id);
             //   console.log("Current Coords: ", theEvent.detail.intersection.point);
         });
     }
