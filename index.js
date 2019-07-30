@@ -73,7 +73,7 @@ AFRAME.registerComponent('resize', {
 AFRAME.registerComponent("click_component", {
     init: function () {
         console.log("object registered with 'click_component': ", this.el.id);
-        
+
         var model = document.getElementById('parentBox');
 
         // retrieving the model by its ID
@@ -99,7 +99,6 @@ AFRAME.registerComponent("click_component", {
                 // console.log("setting visibility to true");
                 document.querySelector("#" + theEvent.target.id).setAttribute('material', 'visible', 'true');
             }
-
             let rotation = model.getAttribute("rotation");
 
             switch (theEvent.target.id) {
@@ -118,7 +117,7 @@ AFRAME.registerComponent("click_component", {
                 default:
                     break;
             }
-            
+
             model.setAttribute('rotation', rotation);
 
         });
@@ -134,31 +133,34 @@ AFRAME.registerComponent("click_component", {
 AFRAME.registerComponent("pan-rotate-component", {
     init: function () {
         var element = document.querySelector('body');
-        var model = document.getElementById('arrow_container');
+        var model = document.getElementById('parentBox');
         var hammertime = new Hammer(element);
-        var pinch = new Hammer.Pinch(); // Pinch is not by default in the recognisers
-        hammertime.add(pinch); // add it to the Manager instance
 
-//        hammertime.on('pan', (ev) => {
-//            let containerRotation = model.getAttribute("rotation");
-//            switch (ev.direction) {
-//                case 2:
-//                    containerRotation.y = containerRotation.y + 4
-//                    break;
-//                case 4:
-//                    containerRotation.y = containerRotation.y - 4
-//                    break;
-//                case 8:
-//                    containerRotation.x = containerRotation.x + 4
-//                    break;
-//                case 16:
-//                    containerRotation.x = containerRotation.x - 4
-//                    break;
-//                default:
-//                    break;
-//            }
-//            model.setAttribute("rotation", containerRotation);
-//        });
+        hammertime.get('swipe').set({
+            direction: Hammer.DIRECTION_ALL
+        });
+
+        var pinch = new Hammer.Pinch();
+        hammertime.add(pinch);
+
+        hammertime.on('swipe', function (ev) {
+            let rotation = model.getAttribute("rotation");
+            switch (ev.direction) {
+                case Hammer.DIRECTION_LEFT:
+                    rotation.x += 90;
+                    break;
+                case Hammer.DIRECTION_RIGHT:
+                    rotation.x -= 90;
+                    break;
+                case Hammer.DIRECTION_UP:
+                    rotation.z += 90;
+                    break;
+                case Hammer.DIRECTION_DOWN:
+                    rotation.z -= 90;
+                    break;
+            }
+            model.setAttribute('rotation', rotation);
+        });
 
         hammertime.on("pinch", (ev) => {
             let scale = {
