@@ -87,7 +87,7 @@ AFRAME.registerComponent("click_component", {
             //     "\n\ntheElement: ", document.querySelector("#" + theEvent.target.id));
 
             // console.log("Item clicked: ", theEvent.target.id);
-            
+
             // console.log("Does material property exist? : ", document.querySelector("#" + theEvent.target.id).getAttribute('material') != null);
             // if(document.querySelector("#" + theEvent.target.id).getAttribute('material') != null) {
             //     if(document.querySelector("#" + theEvent.target.id).getDOMAttribute('material').visible == "true"){
@@ -100,7 +100,7 @@ AFRAME.registerComponent("click_component", {
             //     }
             // }
 
-            
+
         });
 
         theElement.addEventListener("mouseenter", function (theEvent) {
@@ -117,12 +117,42 @@ AFRAME.registerComponent("pan-rotate-component", {
         var model = document.getElementById('parentBox');
         var hammertime = new Hammer(element);
 
+        hammertime.on('pan', (ev) => {
+            let containerRotation = model.getAttribute("rotation");
+            switch (ev.direction) {
+                case 2:
+                    //left
+                    containerRotation.x += 4;
+                    break;
+                case 4:
+                    //right
+                    containerRotation.x -= 4;
+                    break;
+                case 8:
+                    //up
+                    containerRotation.z += 4;
+                    break;
+                case 16:
+                    //down
+                    containerRotation.z -= 4;
+                    break;
+                default:
+                    break;
+            }
+            model.setAttribute("rotation", containerRotation);
+        });
+    }
+});
+
+AFRAME.registerComponent("swipe-rotate-component", {
+    init: function () {
+        var element = document.querySelector('body');
+        var model = document.getElementById('parentBox');
+        var hammertime = new Hammer(element);
+
         hammertime.get('swipe').set({
             direction: Hammer.DIRECTION_ALL
         });
-
-        var pinch = new Hammer.Pinch();
-        hammertime.add(pinch);
 
         hammertime.on('swipe', function (ev) {
             let rotation = model.getAttribute("rotation");
@@ -146,6 +176,17 @@ AFRAME.registerComponent("pan-rotate-component", {
 
             console.log("rotation: ", rotation);
         });
+    }
+});
+
+AFRAME.registerComponent("pinch-zoom-component", {
+    init: function () {
+        var element = document.querySelector('body');
+        var model = document.getElementById('parentBox');
+        var hammertime = new Hammer(element);
+
+        var pinch = new Hammer.Pinch();
+        hammertime.add(pinch);
 
         hammertime.on("pinch", (ev) => {
             let scale = {
