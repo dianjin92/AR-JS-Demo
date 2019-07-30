@@ -5,40 +5,165 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
     <script src="https://google-ar.github.io/three.ar.js/dist/three.ar.js"></script>
+    <!-- <script src="https://threejs.org/build/three.js"></script> -->
     <script src="https://rawgit.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
     <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
-    <!-- <script src="https://github.com/mrdoob/three.js/blob/master/src/core/Raycaster.js"></script> -->
-    <!-- <script src="action.js" type="application/javascript"></script> -->
-    <script type="text/javascript">
-    alert("in collider-check");
-    
-    AFRAME.registerComponent('collider-check', {
-    dependencies: ['raycaster'],
 
-    init: function () {
-        this.el.addEventListener('raycaster-intersection', function () {
-        console.log('Player hit something!');
-        });
-    }
-    });
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+
+    <script src="index.js"></script>
+    <script src="ObjectControls.js"></script>
 
 </head>
 
-
-
-
 <body style='margin : 0px; overflow: hidden;'>
-    <a-scene>
 
-            <a-entity class="collidable" geometry="primitive: box" position="1 0 0"></a-entity>
-            
-        <a-entity id="player" collider-check>
-            <a-entity raycaster="objects: .collidable;" position="0 -0.9 0" rotation="90 0 0"></a-entity>
+    
+
+    <a-scene onload_activity list_properties ar embedded vr-mode-ui="enabled: false" arjs='trackingMethod: best; sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
+
+        <a-assets>
+            <a-asset-item id="sta" src="model/example.gltf"></a-asset-item>
+        </a-assets>
+
+        <a-entity camera>
         </a-entity>
 
-        
-        
+        <!-- <a-marker emitevents="true" cursor="rayOrigin: mouse" id="animated-marker" type="barcode" value="6">
+            <a-entity markerhandler id="animated-model" gltf-model="#sta" scale="0.005 0.005 0.005" rotation="0 0 0"></a-entity>
+        </a-marker> -->
+
+        <a-marker cursor="rayOrigin: mouse" raycaster="
+                    objects: .clickable; 
+                    showLine: false;" emitevents="true" id="the-barcode" type="barcode" value="6">
+
+            <a-entity id="parentBox" geometry="primitive: box; width: 1; height: 1; depth: 1" class="not_clickable" click_component check_size material="
+                    opacity: 0.2; 
+                    color: blue;">
+
+                <a-entity 
+                    id="STA_Model" 
+                    gltf-model="#sta" 
+                    class="clickable" 
+                    resize='axis:x; value: 1;' 
+                    position="0 -0.25 0">
+                </a-entity>
+
+                <a-entity 
+                    id="top_Diameter" 
+                    geometry="primitive: circle; radius: 0.29" 
+                    class="clickable" 
+                    scale="0.25 0.25 0.25" 
+                    position="0 0.33 0" 
+                    rotation="90 0 0" 
+                    material="
+                        opacity: 1;
+                        color: red;
+                        side: double;
+                        visible: false;">
+                </a-entity>
+
+                <a-entity 
+                    id="top_Flatness" 
+                    geometry="primitive: ring; radiusInner: 0.35; radiusOuter: 1.145" 
+                    class="clickable" 
+                    scale="0.20 0.20 0.20" 
+                    position="0 0.32 0" 
+                    rotation="90 0 0" 
+                    material="
+                        opacity: 1;
+                        color: yellow;
+                        side: double;
+                        visible: true;">
+                </a-entity>
+
+                <a-entity 
+                    id="bottom_Diameter" 
+                    geometry="primitive: circle; radius: 0.29" 
+                    class="clickable" 
+                    scale="0.25 0.25 0.25" 
+                    position="0 -0.34 0" 
+                    rotation="90 0 0" 
+                    material="
+                        opacity: 0.6;
+                        color: blue;
+                        side: double;
+                        visible: true;">
+                </a-entity>
+
+                <a-entity 
+                    id="the_word_front" 
+                    text="
+                        value: Measure Diameter or Flatness;
+                        color: white;
+                        side: front;"
+                    scale="5 5 5" 
+                    position="1 0 -2" 
+                    rotation="-90 0 90" 
+
+                    >
+                </a-entity>
+
+                <a-entity 
+                    id="the_word_back" 
+                    text="
+                        value: Measure Diameter;
+                        color: white;
+                        side: front;"
+                    scale="5 5 5" 
+                    position="-1 0 -2" 
+                    rotation="90 0 -90" 
+
+                    >
+                </a-entity>
+                <!-- higher negative position to -1 will bring blue circle out of model -->
+
+                <!-- 
+                    set_scale_component 
+                    resize='axis:x; value:1'
+                -->
+
+            </a-entity>
+
+        </a-marker>
+
+        <!--         
+
+        <a-entity markerhandler cursor="rayOrigin: mouse; fuse: false;">
+            
+        </a-entity> -->
+    </a-scene>
+
+
+    <script>
+
+        function init() {
+
+            console.log("in init!!!!");
+
+            cameraTest = document.querySelector('a-entity[camera]').object3D;
+            console.log("camera test" ,cameraTest);
+
+            ourDocument = document;
+            console.log("document:", document);
+
+            objectToRotate = document.querySelector('#' + "parentBox").object3D;
+            console.log("objectToRotate: ", objectToRotate);
+
+            /** instantiate ObjectControls**/
+            controls = new THREE.ObjectControls(cameraTest, document, objectToRotate);
+            controls.setDistance(8, 200); // set min - max distance for zoom
+            controls.setZoomSpeed(0.5); // set zoom speed
+            controls.enableVerticalRotation();
+            controls.setMaxVerticalRotationAngle(Math.PI / 4, Math.PI / 4);
+            controls.setRotationSpeed(5);
+
+            // window.addEventListener('resize', onResize, false);
+
+        }
+
+        init();
+    </script>
 
 </body>
 

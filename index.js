@@ -79,27 +79,28 @@ AFRAME.registerComponent("click_component", {
 
         theElement.addEventListener("click", function (theEvent) {
 
-            console.log(
-            "\n\nItem clicked: " +
-                theEvent.target.id +
-                "\n\ntheEvent: ", theEvent,
-                "\n\n3D Properties: ", document.querySelector("#" + theEvent.target.id).object3D,
-                "\n\ntheElement: ", document.querySelector("#" + theEvent.target.id));
+            // console.log(
+            // "\n\nItem clicked: " +
+            //     theEvent.target.id +
+            //     "\n\ntheEvent: ", theEvent,
+            //     "\n\n3D Properties: ", document.querySelector("#" + theEvent.target.id).object3D,
+            //     "\n\ntheElement: ", document.querySelector("#" + theEvent.target.id));
 
             // console.log("Item clicked: ", theEvent.target.id);
             
             // console.log("Does material property exist? : ", document.querySelector("#" + theEvent.target.id).getAttribute('material') != null);
-            if(document.querySelector("#" + theEvent.target.id).getAttribute('material') != null) {
-                if(document.querySelector("#" + theEvent.target.id).getDOMAttribute('material').visible == "true"){
-                    // console.log("setting visibility to false");
-                    document.querySelector("#" + theEvent.target.id).setAttribute('material', 'visible', 'false');
-                }
-                else{
-                    // console.log("setting visibility to true");
-                    document.querySelector("#" + theEvent.target.id).setAttribute('material', 'visible', 'true');
-                }
-            }
+            // if(document.querySelector("#" + theEvent.target.id).getAttribute('material') != null) {
+            //     if(document.querySelector("#" + theEvent.target.id).getDOMAttribute('material').visible == "true"){
+            //         // console.log("setting visibility to false");
+            //         document.querySelector("#" + theEvent.target.id).setAttribute('material', 'visible', 'false');
+            //     }
+            //     else{
+            //         // console.log("setting visibility to true");
+            //         document.querySelector("#" + theEvent.target.id).setAttribute('material', 'visible', 'true');
+            //     }
+            // }
 
+            
         });
 
         theElement.addEventListener("mouseenter", function (theEvent) {
@@ -142,6 +143,8 @@ AFRAME.registerComponent("pan-rotate-component", {
                     break;
             }
             model.setAttribute('rotation', rotation);
+
+            console.log("rotation: ", rotation);
         });
 
         hammertime.on("pinch", (ev) => {
