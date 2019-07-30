@@ -74,8 +74,6 @@ AFRAME.registerComponent("click_component", {
     init: function () {
         console.log("object registered with 'click_component': ", this.el.id);
 
-        var model = document.getElementById('parentBox');
-
         // retrieving the model by its ID
         theElement = document.querySelector("#" + this.el.id);
 
@@ -99,26 +97,6 @@ AFRAME.registerComponent("click_component", {
                 // console.log("setting visibility to true");
                 document.querySelector("#" + theEvent.target.id).setAttribute('material', 'visible', 'true');
             }
-            let rotation = model.getAttribute("rotation");
-
-            switch (theEvent.target.id) {
-                case "up_arrow":
-                    rotation.z += 90;
-                    break;
-                case "down_arrow":
-                    rotation.z -= 90;
-                    break;
-                case "left_arrow":
-                    rotation.x += 90;
-                    break;
-                case "right_arrow":
-                    rotation.x -= 90;
-                    break;
-                default:
-                    break;
-            }
-
-            model.setAttribute('rotation', rotation);
 
         });
 
@@ -157,6 +135,8 @@ AFRAME.registerComponent("pan-rotate-component", {
                     break;
                 case Hammer.DIRECTION_DOWN:
                     rotation.z -= 90;
+                    break;
+                default:
                     break;
             }
             model.setAttribute('rotation', rotation);
