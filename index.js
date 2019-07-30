@@ -116,30 +116,60 @@ AFRAME.registerComponent("pan-rotate-component", {
         var element = document.querySelector('body');
         var model = document.getElementById('parentBox');
         var hammertime = new Hammer(element);
+        
+        var fronttext_1 = document.getElementsByClassName('the_word_front')[0];
+        var fronttext_2 = document.getElementsByClassName('the_word_front')[1];
+        var backtext = document.getElementById('the_word_back');
+        
+        var frontindicator_1 = document.getElementById('top_Diameter');
+        var frontindicator_2 = document.getElementById('top_Flatness');
+        var backindicator = document.getElementById('bottom_Diameter');
 
         hammertime.on('pan', (ev) => {
-            let containerRotation = model.getAttribute("rotation");
+            let rotation = model.getAttribute("rotation");
             switch (ev.direction) {
                 case 2:
                     //left
-                    containerRotation.x += 4;
+                    rotation.x += 4;
                     break;
                 case 4:
                     //right
-                    containerRotation.x -= 4;
+                    rotation.x -= 4;
                     break;
                 case 8:
                     //up
-                    containerRotation.z += 4;
+                    rotation.z += 4;
                     break;
                 case 16:
                     //down
-                    containerRotation.z -= 4;
+                    rotation.z -= 4;
                     break;
                 default:
                     break;
             }
-            model.setAttribute("rotation", containerRotation);
+            model.setAttribute("rotation", rotation);
+            
+            if (Math.abs(parseInt((rotation.x/90) - (rotation.z/90)) % 4) == 0) {
+                fronttext_1.setAttribute("text", "opacity", "1");
+                fronttext_2.setAttribute("text", "opacity", "1");
+                
+                frontindicator_1.setAttribute("material", "visible", "true");
+                frontindicator_2.setAttribute("material", "visible", "true");
+                
+            } else if (Math.abs(parseInt((rotation.x/90) - (rotation.z/90)) % 4) == 2){
+                backtext.setAttribute("text", "opacity", "1");
+                backindicator.setAttribute("material", "visible", "true");
+                
+            } else {
+                fronttext_1.setAttribute("text", "opacity", "0");
+                fronttext_2.setAttribute("text", "opacity", "0");
+                backtext.setAttribute("text", "opacity", "0");
+                
+                frontindicator_1.setAttribute("material", "visible", "false");
+                frontindicator_2.setAttribute("material", "visible", "false");
+                backindicator.setAttribute("material", "visible", "false");
+                
+            }
         });
     }
 });
@@ -149,6 +179,14 @@ AFRAME.registerComponent("swipe-rotate-component", {
         var element = document.querySelector('body');
         var model = document.getElementById('parentBox');
         var hammertime = new Hammer(element);
+        
+        var fronttext_1 = document.getElementsByClassName('the_word_front')[0];
+        var fronttext_2 = document.getElementsByClassName('the_word_front')[1];
+        var backtext = document.getElementById('the_word_back');
+        
+        var frontindicator_1 = document.getElementById('top_Diameter');
+        var frontindicator_2 = document.getElementById('top_Flatness');
+        var backindicator = document.getElementById('bottom_Diameter');
 
         hammertime.get('swipe').set({
             direction: Hammer.DIRECTION_ALL
@@ -172,9 +210,29 @@ AFRAME.registerComponent("swipe-rotate-component", {
                 default:
                     break;
             }
-            model.setAttribute('rotation', rotation);
-
-            console.log("rotation: ", rotation);
+            model.setAttribute('rotation', rotation);            
+            
+            if (Math.abs(parseInt((rotation.x/90) - (rotation.z/90)) % 4) == 0) {
+                fronttext_1.setAttribute("text", "opacity", "1");
+                fronttext_2.setAttribute("text", "opacity", "1");
+                
+                frontindicator_1.setAttribute("material", "visible", "true");
+                frontindicator_2.setAttribute("material", "visible", "true");
+                
+            } else if (Math.abs(parseInt((rotation.x/90) - (rotation.z/90)) % 4) == 2){
+                backtext.setAttribute("text", "opacity", "1");
+                backindicator.setAttribute("material", "visible", "true");
+                
+            } else {
+                fronttext_1.setAttribute("text", "opacity", "0");
+                fronttext_2.setAttribute("text", "opacity", "0");
+                backtext.setAttribute("text", "opacity", "0");
+                
+                frontindicator_1.setAttribute("material", "visible", "false");
+                frontindicator_2.setAttribute("material", "visible", "false");
+                backindicator.setAttribute("material", "visible", "false");
+                
+            }
         });
     }
 });
