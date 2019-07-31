@@ -251,6 +251,10 @@ AFRAME.registerComponent("swipe-rotate-component", {
 
 AFRAME.registerComponent("pinch-zoom-component", {
     init: function () {
+
+        let minScale = 1;
+        let maxScale = 5;
+        
         var element = document.querySelector('body');
         var model = document.getElementById('testingZoom');
         var hammertime = new Hammer(element);
@@ -259,27 +263,41 @@ AFRAME.registerComponent("pinch-zoom-component", {
         hammertime.add(pinch);
 
         // get user dynamic scale value
+        let currentScaleValue = model.object3D.scale;
         hammertime.on("pinch", (ev) => {
-            let scale = {
-                x: ev.scale,
-                y: ev.scale,
-                z: ev.scale
-            }
+            // let scale = {
+            //     x: ev.scale,
+            //     y: ev.scale,
+            //     z: ev.scale
+            // }
 
             // retrieve the current model scale value
             // looks like {x: 1, y: 1, z: 1}
-            currentScaleValue = model.object3D.scale;
 
-            scale = {
-                x: ev.scale + currentScaleValue.x,
-                y: ev.scale + currentScaleValue.y,
-                z: ev.scale + currentScaleValue.z
+            console.log("currentscaleValue:", currentScaleValue);
+
+            toScale = ev.scale - 1;
+            console.log("current to scale: ", toScale, typeof(toScale))
+
+            if (currentScaleValue.x <= minScale && toScale < 0) {
+                currentScaleValue = {
+                    x: minScale,
+                    y: minScale,
+                    z: minScale
+                }
+            } else if (currentScaleValue.x >= maxScale && toScale > 0) {
+                currentScaleValue = {
+                    x: maxScale,
+                    y: maxScale,
+                    z: maxScale
+                }
+            } else {
+                currentScaleValue.x += toScale;
+                currentScaleValue.y += toScale;
+                currentScaleValue.z += toScale;
             }
 
-            console.log(scale);
-
-            model.object3D.scale = scale;
-            
+            console.log("current model scale:", currentScaleValue.x);
             
         });
     }
