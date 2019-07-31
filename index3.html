@@ -3,6 +3,13 @@
 
 <head>
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    
+    <script src="//cdn.jsdelivr.net/npm/eruda"></script>
+    <script>
+        eruda.init();
+        eruda.scale(0.5);
+    </script>
+
     <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
     <script src="https://google-ar.github.io/three.ar.js/dist/three.ar.js"></script>
     <!-- <script src="https://threejs.org/build/three.js"></script> -->
@@ -12,7 +19,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
 
     <script src="index.js"></script>
-
 </head>
 
 <body style='margin : 0px; overflow: hidden;'>
@@ -34,55 +40,59 @@
                     objects: .clickable; 
                     showLine: false;" emitevents="true" id="the-barcode" type="barcode" value="6">
 
-            <a-entity id="parentBox" geometry="primitive: box; width: 1; height: 1; depth: 1" class="not_clickable" click_component check_size pinch-zoom-component pan-rotate-component material="
-                    opacity: 0; 
-                    color: blue;">
+            <a-entity id="testingZoom" pinch-zoom-component >
+                
+                <a-entity id="parentBox" geometry="primitive: box; width: 1; height: 1; depth: 1" class="not_clickable" click_component check_size swipe-rotate-component material="
+                        opacity: 0; 
+                        color: blue;">
 
-                <a-entity id="STA_Model" gltf-model="#sta" class="clickable" resize='axis:x; value: 1;' position="0 -0.25 0">
+                    <a-entity id="STA_Model" gltf-model="#sta" class="clickable" resize='axis:x; value: 1;' position="0 -0.25 0">
+                    </a-entity>
+
+                    <a-entity id="top_Diameter" geometry="primitive: circle; radius: 0.29" class="clickable" scale="0.25 0.25 0.25" position="0 0.35 0" rotation="90 0 0" material="
+                            opacity: 0.3;
+                            color: red;
+                            side: double;
+                            visible: true;">
+                    </a-entity>
+
+                    <a-entity id="top_Flatness" geometry="primitive: ring; radiusInner: 0.35; radiusOuter: 1.145" class="clickable" scale="0.20 0.20 0.20" position="0 0.35 0" rotation="90 0 0" material="
+                            opacity: 0.3;
+                            color: yellow;
+                            side: double;
+                            visible: true;">
+                    </a-entity>
+
+                    <a-entity id="bottom_Diameter" geometry="primitive: circle; radius: 0.29" class="clickable" scale="0.25 0.25 0.25" position="0 -0.34 0" rotation="90 0 0" material="
+                            opacity: 0.3;
+                            color: blue;
+                            side: double;
+                            visible: true;">
+                    </a-entity>
+                </a-entity>
+                
+                <a-entity class="the_word_front" text="
+                            value: Measure Diameter;
+                            color: red;
+                            side: front;
+                            opacity: 1;" scale="5 5 5" position="1 0 -2" rotation="-90 0 90">
+                </a-entity>
+                <a-entity class="the_word_front" text="
+                            value: Measure Flatness;
+                            color: yellow;
+                            side: front;
+                            opacity: 1;" scale="5 5 5" position="1.5 0 -2" rotation="-90 0 90">
                 </a-entity>
 
-                <a-entity id="top_Diameter" geometry="primitive: circle; radius: 0.29" class="clickable" scale="0.25 0.25 0.25" position="0 0.35 0" rotation="90 0 0" material="
-                        opacity: 0.3;
-                        color: red;
-                        side: double;
-                        visible: true;">
+                <a-entity id="the_word_back" text="
+                            value: Measure Diameter;
+                            color: blue;
+                            side: front;
+                            opacity: 0;" scale="5 5 5" position="1 0 -2" rotation="-90 0 90">
                 </a-entity>
 
-                <a-entity id="top_Flatness" geometry="primitive: ring; radiusInner: 0.35; radiusOuter: 1.145" class="clickable" scale="0.20 0.20 0.20" position="0 0.35 0" rotation="90 0 0" material="
-                        opacity: 0.3;
-                        color: yellow;
-                        side: double;
-                        visible: true;">
-                </a-entity>
-
-                <a-entity id="bottom_Diameter" geometry="primitive: circle; radius: 0.29" class="clickable" scale="0.25 0.25 0.25" position="0 -0.34 0" rotation="90 0 0" material="
-                        opacity: 0.3;
-                        color: blue;
-                        side: double;
-                        visible: true;">
-                </a-entity>
             </a-entity>
             
-            <a-entity class="the_word_front" text="
-                        value: Measure Diameter;
-                        color: red;
-                        side: front;
-                        opacity: 1;" scale="5 5 5" position="1 0 -2" rotation="-90 0 90">
-            </a-entity>
-            <a-entity class="the_word_front" text="
-                        value: Measure Flatness;
-                        color: yellow;
-                        side: front;
-                        opacity: 1;" scale="5 5 5" position="1.5 0 -2" rotation="-90 0 90">
-            </a-entity>
-
-            <a-entity id="the_word_back" text="
-                        value: Measure Diameter;
-                        color: blue;
-                        side: front;
-                        opacity: 0;" scale="5 5 5" position="1 0 -2" rotation="-90 0 90">
-            </a-entity>
-
         </a-marker>
     </a-scene>
 

@@ -79,6 +79,8 @@ AFRAME.registerComponent("click_component", {
 
         theElement.addEventListener("click", function (theEvent) {
 
+            console.log("Clicked: ", theEvent.target.id, " ", theEvent);
+
             // console.log(
             // "\n\nItem clicked: " +
             //     theEvent.target.id +
@@ -231,8 +233,18 @@ AFRAME.registerComponent("swipe-rotate-component", {
                 frontindicator_1.setAttribute("material", "visible", "false");
                 frontindicator_2.setAttribute("material", "visible", "false");
                 backindicator.setAttribute("material", "visible", "false");
-                
             }
+
+            // var the_model = document.getElementById('testingZoom');
+            // let scale = {
+            //     x: "3",
+            //     y: "3",
+            //     z: "3"
+            // }
+            // // the_model.setAttribute("scale", scale);
+            // console.log("HAHAHA THE MODE:" , the_model);
+            // console.log("HAHAHA THE MODE:" , the_model.object3D);
+
         });
     }
 });
@@ -240,19 +252,35 @@ AFRAME.registerComponent("swipe-rotate-component", {
 AFRAME.registerComponent("pinch-zoom-component", {
     init: function () {
         var element = document.querySelector('body');
-        var model = document.getElementById('parentBox');
+        var model = document.getElementById('testingZoom');
         var hammertime = new Hammer(element);
 
         var pinch = new Hammer.Pinch();
         hammertime.add(pinch);
 
+        // get user dynamic scale value
         hammertime.on("pinch", (ev) => {
             let scale = {
                 x: ev.scale,
                 y: ev.scale,
                 z: ev.scale
             }
-            model.setAttribute("scale", scale);
+
+            // retrieve the current model scale value
+            // looks like {x: 1, y: 1, z: 1}
+            currentScaleValue = model.object3D.scale;
+
+            scale = {
+                x: ev.scale + currentScaleValue.x,
+                y: ev.scale + currentScaleValue.y,
+                z: ev.scale + currentScaleValue.z
+            }
+
+            console.log(scale);
+
+            model.object3D.scale = scale;
+            
+            
         });
     }
 });
