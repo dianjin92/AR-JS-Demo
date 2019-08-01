@@ -131,22 +131,24 @@ AFRAME.registerComponent("click_component", {
 
         });
 
-        /*theElement.addEventListener("mouseenter", function (theEvent) {
+        theElement.addEventListener("mouseenter", function (theEvent) {
              console.log("intersected:", theEvent.target.id);
             //   console.log("Current Coords: ", theEvent.detail.intersection.point);
-        });*/
+        });
     }
 });
 
 
 AFRAME.registerComponent('raycaster-listen', {
     init: function () {
-        // Use events to figure out what raycaster is listening so we don't have to
-        // hardcode the raycaster.
-        this.el.addEventListener('raycaster-intersected', evt => {
-            console.log(evt.target.id);
+
+        theTaggedElement = this.el;
+
+
+        theTaggedElement.addEventListener("raycaster-intersected", function(theEvent) {
+            console.log(theEvent.target.id);
         });
-        this.el.addEventListener('raycaster-intersected-cleared', evt => {
+        theTaggedElement.addEventListener("raycaster-intersected-cleared", function(theEvent) {
             this.raycaster = null;
         });
     },
@@ -267,7 +269,7 @@ AFRAME.registerComponent("swipe-rotate-component", {
             }
             model.setAttribute('rotation', rotation);
 
-            if (Math.abs(parseInt((rotation.x / 90) - (rotation.z / 90)) % 4) == 0) {
+            if (Math.abs(parseInt((rotation.x / 90) - (rotation.z / 90)) % 4) == 1) {
                 fronttext_1.setAttribute("text", "opacity", "1");
                 fronttext_2.setAttribute("text", "opacity", "1");
 
@@ -276,7 +278,7 @@ AFRAME.registerComponent("swipe-rotate-component", {
                 frontindicator_2.setAttribute("material", "visible", "true");
                 frontindicator_2.setAttribute("material", "opacity", "1");
 
-            } else if (Math.abs(parseInt((rotation.x / 90) - (rotation.z / 90)) % 4) == 2) {
+            } else if (Math.abs(parseInt((rotation.x / 90) - (rotation.z / 90)) % 4) == 3) {
                 backtext.setAttribute("text", "opacity", "1");
                 backindicator.setAttribute("material", "visible", "true");
                 backindicator.setAttribute("material", "opacity", "1");
@@ -302,7 +304,7 @@ AFRAME.registerComponent("pinch-zoom-component", {
     init: function () {
 
         var element = document.querySelector('body');
-        var model = document.getElementById('testingZoom');
+        var model = document.getElementById('parentBox');
         var hammertime = new Hammer(element);
 
         var pinch = new Hammer.Pinch();
@@ -338,7 +340,7 @@ AFRAME.registerComponent("pinch-zoom-component", {
 
 function scroll(event) {
     var scroll = event.deltaY;
-    var model = document.getElementById('testingZoom');
+    var model = document.getElementById('elements_to_zoom');
 
     let currentScaleValue = model.object3D.scale;
 
