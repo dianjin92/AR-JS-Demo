@@ -1,3 +1,6 @@
+let minScale = 1;
+let maxScale = 5;
+
 AFRAME.registerComponent('onload_activity', {
     init: function () {
         let theSceneElement = this.el;
@@ -77,6 +80,7 @@ AFRAME.registerComponent("click_component", {
         // retrieving the model by its ID
         theElement = document.querySelector("#" + this.el.id);
 
+
         theElement.addEventListener("click", function (theEvent) {
 
             console.log("Clicked: ", theEvent.target.id, " ", theEvent);
@@ -105,11 +109,38 @@ AFRAME.registerComponent("click_component", {
 
         });
 
-        theElement.addEventListener("mouseenter", function (theEvent) {
-            // console.log("intersected:", theEvent.target.id);
+        /*theElement.addEventListener("mouseenter", function (theEvent) {
+             console.log("intersected:", theEvent.target.id);
             //   console.log("Current Coords: ", theEvent.detail.intersection.point);
-        });
+        });*/
     }
+});
+
+
+AFRAME.registerComponent('raycaster-listen', {
+    init: function () {
+        // Use events to figure out what raycaster is listening so we don't have to
+        // hardcode the raycaster.
+        this.el.addEventListener('raycaster-intersected', evt => {
+            console.log(evt.target.id);
+        });
+        this.el.addEventListener('raycaster-intersected-cleared', evt => {
+            this.raycaster = null;
+        });
+    },
+
+//    tick: function () {
+//        console.log("intersection", this.raycaster);
+//        if (!this.raycaster) {
+//            return;
+//        } // Not intersecting.
+//
+//        let intersection = this.raycaster.components.raycaster.getIntersection(this.el);
+//        if (!intersection) {
+//            return;
+//        }
+//        console.log("intersection2", intersection.point);
+//    }
 });
 
 
@@ -118,11 +149,11 @@ AFRAME.registerComponent("pan-rotate-component", {
         var element = document.querySelector('body');
         var model = document.getElementById('parentBox');
         var hammertime = new Hammer(element);
-        
+
         var fronttext_1 = document.getElementsByClassName('the_word_front')[0];
         var fronttext_2 = document.getElementsByClassName('the_word_front')[1];
         var backtext = document.getElementById('the_word_back');
-        
+
         var frontindicator_1 = document.getElementById('top_Diameter');
         var frontindicator_2 = document.getElementById('top_Flatness');
         var backindicator = document.getElementById('bottom_Diameter');
@@ -150,27 +181,27 @@ AFRAME.registerComponent("pan-rotate-component", {
                     break;
             }
             model.setAttribute("rotation", rotation);
-            
-            if (Math.abs(parseInt((rotation.x/90) - (rotation.z/90)) % 4) == 0) {
+
+            if (Math.abs(parseInt((rotation.x / 90) - (rotation.z / 90)) % 4) == 0) {
                 fronttext_1.setAttribute("text", "opacity", "1");
                 fronttext_2.setAttribute("text", "opacity", "1");
-                
+
                 frontindicator_1.setAttribute("material", "visible", "true");
                 frontindicator_2.setAttribute("material", "visible", "true");
-                
-            } else if (Math.abs(parseInt((rotation.x/90) - (rotation.z/90)) % 4) == 2){
+
+            } else if (Math.abs(parseInt((rotation.x / 90) - (rotation.z / 90)) % 4) == 2) {
                 backtext.setAttribute("text", "opacity", "1");
                 backindicator.setAttribute("material", "visible", "true");
-                
+
             } else {
                 fronttext_1.setAttribute("text", "opacity", "0");
                 fronttext_2.setAttribute("text", "opacity", "0");
                 backtext.setAttribute("text", "opacity", "0");
-                
+
                 frontindicator_1.setAttribute("material", "visible", "false");
                 frontindicator_2.setAttribute("material", "visible", "false");
                 backindicator.setAttribute("material", "visible", "false");
-                
+
             }
         });
     }
@@ -181,11 +212,11 @@ AFRAME.registerComponent("swipe-rotate-component", {
         var element = document.querySelector('body');
         var model = document.getElementById('parentBox');
         var hammertime = new Hammer(element);
-        
+
         var fronttext_1 = document.getElementsByClassName('the_word_front')[0];
         var fronttext_2 = document.getElementsByClassName('the_word_front')[1];
         var backtext = document.getElementById('the_word_back');
-        
+
         var frontindicator_1 = document.getElementById('top_Diameter');
         var frontindicator_2 = document.getElementById('top_Flatness');
         var backindicator = document.getElementById('bottom_Diameter');
@@ -212,38 +243,34 @@ AFRAME.registerComponent("swipe-rotate-component", {
                 default:
                     break;
             }
-            model.setAttribute('rotation', rotation);            
-            
-            if (Math.abs(parseInt((rotation.x/90) - (rotation.z/90)) % 4) == 0) {
+            model.setAttribute('rotation', rotation);
+
+            if (Math.abs(parseInt((rotation.x / 90) - (rotation.z / 90)) % 4) == 0) {
                 fronttext_1.setAttribute("text", "opacity", "1");
                 fronttext_2.setAttribute("text", "opacity", "1");
-                
+
                 frontindicator_1.setAttribute("material", "visible", "true");
+                frontindicator_1.setAttribute("material", "opacity", "1");
                 frontindicator_2.setAttribute("material", "visible", "true");
-                
-            } else if (Math.abs(parseInt((rotation.x/90) - (rotation.z/90)) % 4) == 2){
+                frontindicator_2.setAttribute("material", "opacity", "1");
+
+            } else if (Math.abs(parseInt((rotation.x / 90) - (rotation.z / 90)) % 4) == 2) {
                 backtext.setAttribute("text", "opacity", "1");
                 backindicator.setAttribute("material", "visible", "true");
-                
+                backindicator.setAttribute("material", "opacity", "1");
+
             } else {
                 fronttext_1.setAttribute("text", "opacity", "0");
                 fronttext_2.setAttribute("text", "opacity", "0");
                 backtext.setAttribute("text", "opacity", "0");
-                
-                frontindicator_1.setAttribute("material", "visible", "false");
-                frontindicator_2.setAttribute("material", "visible", "false");
-                backindicator.setAttribute("material", "visible", "false");
-            }
 
-            // var the_model = document.getElementById('testingZoom');
-            // let scale = {
-            //     x: "3",
-            //     y: "3",
-            //     z: "3"
-            // }
-            // // the_model.setAttribute("scale", scale);
-            // console.log("HAHAHA THE MODE:" , the_model);
-            // console.log("HAHAHA THE MODE:" , the_model.object3D);
+                frontindicator_1.setAttribute("material", "visible", "false");
+                frontindicator_1.setAttribute("material", "opacity", "0");
+                frontindicator_2.setAttribute("material", "visible", "false");
+                frontindicator_2.setAttribute("material", "opacity", "0");
+                backindicator.setAttribute("material", "visible", "false");
+                backindicator.setAttribute("material", "opacity", "0");
+            }
 
         });
     }
@@ -252,9 +279,6 @@ AFRAME.registerComponent("swipe-rotate-component", {
 AFRAME.registerComponent("pinch-zoom-component", {
     init: function () {
 
-        let minScale = 1;
-        let maxScale = 5;
-        
         var element = document.querySelector('body');
         var model = document.getElementById('testingZoom');
         var hammertime = new Hammer(element);
@@ -265,32 +289,17 @@ AFRAME.registerComponent("pinch-zoom-component", {
         // get user dynamic scale value
         let currentScaleValue = model.object3D.scale;
         hammertime.on("pinch", (ev) => {
-            // let scale = {
-            //     x: ev.scale,
-            //     y: ev.scale,
-            //     z: ev.scale
-            // }
-
-            // retrieve the current model scale value
-            // looks like {x: 1, y: 1, z: 1}
-
-            console.log("currentscaleValue:", currentScaleValue);
-
             toScale = ev.scale - 1;
-            console.log("current to scale: ", toScale, typeof(toScale))
+            console.log("current to scale: ", toScale, typeof (toScale))
 
             if (currentScaleValue.x <= minScale && toScale < 0) {
-                currentScaleValue = {
-                    x: minScale,
-                    y: minScale,
-                    z: minScale
-                }
+                currentScaleValue.x = minScale;
+                currentScaleValue.y = minScale;
+                currentScaleValue.z = minScale;
             } else if (currentScaleValue.x >= maxScale && toScale > 0) {
-                currentScaleValue = {
-                    x: maxScale,
-                    y: maxScale,
-                    z: maxScale
-                }
+                currentScaleValue.x = maxScale;
+                currentScaleValue.y = maxScale;
+                currentScaleValue.z = maxScale;
             } else {
                 currentScaleValue.x += toScale;
                 currentScaleValue.y += toScale;
@@ -298,10 +307,45 @@ AFRAME.registerComponent("pinch-zoom-component", {
             }
 
             console.log("current model scale:", currentScaleValue.x);
-            
+
         });
+
+        element.addEventListener("wheel", scroll);
     }
 });
+
+function scroll(event) {
+    var scroll = event.deltaY;
+    var model = document.getElementById('testingZoom');
+
+    let currentScaleValue = model.object3D.scale;
+
+    var toScale = 0.2;
+
+    if (scroll > 0) {
+        if (currentScaleValue.x <= minScale) {
+            currentScaleValue.x = minScale;
+            currentScaleValue.y = minScale;
+            currentScaleValue.z = minScale;
+        } else {
+            currentScaleValue.x -= toScale;
+            currentScaleValue.y -= toScale;
+            currentScaleValue.z -= toScale;
+        }
+
+    } else {
+        if (currentScaleValue.x >= maxScale) {
+            currentScaleValue.x = maxScale;
+            currentScaleValue.y = maxScale;
+            currentScaleValue.z = maxScale;
+        } else {
+            currentScaleValue.x += toScale;
+            currentScaleValue.y += toScale;
+            currentScaleValue.z += toScale;
+        }
+    }
+}
+
 
 AFRAME.registerComponent("set_scale_component", {
     init: function () {
