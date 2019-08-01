@@ -1,6 +1,26 @@
 let minScale = 1;
 let maxScale = 5;
 
+AFRAME.registerComponent('track_marker', {
+    init: function () {
+        let theSceneElement = this.el;
+
+        console.log("track_marker element:", theSceneElement);
+
+        theSceneElement.addEventListener('markerFound', function (theEvent) {
+            console.log("markers found");
+
+            
+        });
+
+        theSceneElement.addEventListener('markerLost', function (theEvent) {
+            console.log("markers lost");
+
+        });
+    }
+});
+
+
 AFRAME.registerComponent('onload_activity', {
     init: function () {
         let theSceneElement = this.el;
@@ -9,6 +29,8 @@ AFRAME.registerComponent('onload_activity', {
 
         theSceneElement.addEventListener('loaded', function (theEvent) {
             console.log("all loaded!");
+
+            console.log("asdljhasiulfdyhakldfhasdjklah", document.getElementById("STA_Model").object3D.position);
 
             // trying to fix the onload interacted issue with this function
         });

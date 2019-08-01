@@ -10,17 +10,24 @@
         eruda.init();
         eruda.scale(0.8);
     </script>
--->
+    -->
 
     <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+
+    <script src="https://rawgit.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
     <script src="https://google-ar.github.io/three.ar.js/dist/three.ar.js"></script>
     <!-- <script src="https://threejs.org/build/three.js"></script> -->
-    <script src="https://rawgit.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
-    <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+    
+    <!-- <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script> -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
 
     <script src="index.js"></script>
+    
+    <!-- <script src="aframe-material.js"></script> -->
+    <!-- <script type="text/javascript">
+        AFRAME.ASSETS_PATH = "./assets";
+    </script> -->
 </head>
 
 <body style='margin : 0px; overflow: hidden;'>
@@ -31,12 +38,34 @@
             <a-asset-item id="sta" src="model/example.gltf"></a-asset-item>
         </a-assets>
 
-        <a-entity camera cursor="rayOrigin: mouse" raycaster="
-                    objects: .clickable; 
-                    showLine: false;">
+
+        <a-entity 
+            id="ourCamera" 
+            camera 
+            position="0 0 0">
+
+            <a-entity 
+                cursor="rayOrigin: mouse" 
+                raycaster="
+                objects: .clickable; 
+                showLine: false;" >
+            </a-entity>
+            
         </a-entity>
 
-        <a-marker class="not_clickable" emitevents="true" id="the-barcode" type="barcode" value="6">
+
+        <a-marker 
+            cursor="rayOrigin: mouse" 
+            raycaster="
+                objects: .clickable; 
+                showLine: false;" 
+
+            class="not_clickable" 
+            emitevents="true" 
+            id="the-barcode" 
+            type="barcode" 
+            value="6"
+            track_marker>
 
             <a-entity id="testingZoom" pinch-zoom-component>
 
@@ -93,6 +122,8 @@
 
         </a-marker>
     </a-scene>
+
+
 
 </body>
 
