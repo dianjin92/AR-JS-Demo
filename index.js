@@ -1,5 +1,6 @@
-let minScale = 1;
-let maxScale = 5;
+const pan_angle = 1;
+const minScale = 1;
+const maxScale = 5;
 
 AFRAME.registerComponent('track_marker_component-on', {
     init: function () {
@@ -59,13 +60,11 @@ AFRAME.registerComponent('resize_component-on', {
 
 AFRAME.registerComponent("click_component-on", {
     init: function () {
-
         // retrieving the model by its ID
         theElement = document.querySelector("#" + this.el.id);
 
 
         theElement.addEventListener("click", function (theEvent) {
-
             console.log("Item Clicked:\n", theEvent.target.id, "\n\nProperties:\n", theEvent);
             // console.log(
             // "\n\nItem clicked: " +
@@ -79,7 +78,7 @@ AFRAME.registerComponent("click_component-on", {
         });
 
         theElement.addEventListener("mouseenter", function (theEvent) {
-            //  console.log("mouse entered:", theEvent.target.id);
+              console.log("mouse entered:", theEvent.target.id);
         });
     }
 });
@@ -119,32 +118,34 @@ AFRAME.registerComponent("pan_rotate_component-on", {
         var model = document.getElementById('parentBox');
         var hammertime = new Hammer(element);
 
-        var fronttext_1 = document.getElementsByClassName('the_word_front')[0];
-        var fronttext_2 = document.getElementsByClassName('the_word_front')[1];
-        var backtext = document.getElementById('the_word_back');
+        var messageElement = document.getElementById('parentMessage');
 
-        var frontindicator_1 = document.getElementById('top_Diameter');
-        var frontindicator_2 = document.getElementById('top_Flatness');
-        var backindicator = document.getElementById('bottom_Diameter');
+        var fronttext_1 = messageElement.children[0];
+        var fronttext_2 = messageElement.children[1];
+        var backtext = messageElement.children[2];
+
+        var frontindicator_1 = model.children[1];
+        var frontindicator_2 = model.children[2];
+        var backindicator = model.children[3];
 
         hammertime.on('pan', (ev) => {
             let rotation = model.getAttribute("rotation");
             switch (ev.direction) {
                 case 2:
                     //left
-                    rotation.x += 4;
+                    rotation.x += pan_angle;
                     break;
                 case 4:
                     //right
-                    rotation.x -= 4;
+                    rotation.x -= pan_angle;
                     break;
                 case 8:
                     //up
-                    rotation.z += 4;
+                    rotation.z += pan_angle;
                     break;
                 case 16:
                     //down
-                    rotation.z -= 4;
+                    rotation.z -= pan_angle;
                     break;
                 default:
                     break;
@@ -152,7 +153,7 @@ AFRAME.registerComponent("pan_rotate_component-on", {
             model.setAttribute("rotation", rotation);
 
             // toggle front facing stuffs on
-            if (Math.abs(parseInt((rotation.x / 90) - (rotation.z / 90)) % 4) == 0) {
+            if (getModelFace(rotation.x, rotation.z, true) == 0) {
                 fronttext_1.setAttribute("text", "opacity", "1");
                 fronttext_2.setAttribute("text", "opacity", "1");
 
@@ -160,9 +161,10 @@ AFRAME.registerComponent("pan_rotate_component-on", {
                 frontindicator_2.setAttribute("material", "visible", "true");
 
             // toggle back facing stuffs on
-            } else if (Math.abs(parseInt((rotation.x / 90) - (rotation.z / 90)) % 4) == 2) {
+            } else if (getModelFace(rotation.x, rotation.z) <= 3 && getModelFace(rotation.x, rotation.z) >= 1.5) {
                 backtext.setAttribute("text", "opacity", "1");
                 backindicator.setAttribute("material", "visible", "true");
+                backindicator.setAttribute("material", "opacity", "1");
             
             // fallback code: toggle anything else off
             } else {
@@ -184,14 +186,16 @@ AFRAME.registerComponent("swipe_rotate_component-on", {
         var element = document.querySelector('body');
         var model = document.getElementById('parentBox');
         var hammertime = new Hammer(element);
+        
+        var messageElement = document.getElementById('parentMessage');
 
-        var fronttext_1 = document.getElementsByClassName('the_word_front')[0];
-        var fronttext_2 = document.getElementsByClassName('the_word_front')[1];
-        var backtext = document.getElementById('the_word_back');
+        var fronttext_1 = messageElement.children[0];
+        var fronttext_2 = messageElement.children[1];
+        var backtext = messageElement.children[2];
 
-        var frontindicator_1 = document.getElementById('top_Diameter');
-        var frontindicator_2 = document.getElementById('top_Flatness');
-        var backindicator = document.getElementById('bottom_Diameter');
+        var frontindicator_1 = model.children[1];
+        var frontindicator_2 = model.children[2];
+        var backindicator = model.children[3];
 
         hammertime.get('swipe').set({
             direction: Hammer.DIRECTION_ALL
@@ -217,7 +221,7 @@ AFRAME.registerComponent("swipe_rotate_component-on", {
             }
             model.setAttribute('rotation', rotation);
 
-            if (Math.abs(parseInt((rotation.x / 90) - (rotation.z / 90)) % 4) == 0) {
+            if (getModelFace(rotation.x, rotation.z, true) == 0) {
                 fronttext_1.setAttribute("text", "opacity", "1");
                 fronttext_2.setAttribute("text", "opacity", "1");
 
@@ -226,7 +230,7 @@ AFRAME.registerComponent("swipe_rotate_component-on", {
                 frontindicator_2.setAttribute("material", "visible", "true");
                 frontindicator_2.setAttribute("material", "opacity", "1");
 
-            } else if (Math.abs(parseInt((rotation.x / 90) - (rotation.z / 90)) % 4) == 2) {
+            } else if (getModelFace(rotation.x, rotation.z, true) == 2) {
                 backtext.setAttribute("text", "opacity", "1");
                 backindicator.setAttribute("material", "visible", "true");
                 backindicator.setAttribute("material", "opacity", "1");
@@ -323,14 +327,14 @@ AFRAME.registerComponent("list_properties_component-on", {
 
         allEntityList = document.querySelectorAll("a-entity");
 
-        console.log("<a-entity> detected: ", allEntityList.length);
+//        console.log("<a-entity> detected: ", allEntityList.length);
         for (theEntity of allEntityList) {
             if (!theEntity.id == "") {
 
-                console.log("id:", theEntity.id,
-                    "\nscale:", theEntity.object3D.scale,
-                    "\ncomponents:", document.querySelector("#" + theEntity.id).components,
-                    "\nproperties:", theEntity.object3D);
+//                console.log("id:", theEntity.id,
+//                    "\nscale:", theEntity.object3D.scale,
+//                    "\ncomponents:", document.querySelector("#" + theEntity.id).components,
+//                    "\nproperties:", theEntity.object3D);
             }
         }
 
@@ -358,3 +362,14 @@ AFRAME.registerComponent('check_size-on', {
         });
     }
 });
+
+function getModelFace(x, z, returnInt=false) {
+    
+    result = Math.abs(((x / 90) - (z / 90)) % 4);
+    
+    if (returnInt) {
+        return parseInt(result);
+    } else {
+        return result;
+    }
+}

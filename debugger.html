@@ -121,36 +121,38 @@
                     </a-entity>
                 </a-entity>
 
-                <a-entity class="the_word_front" 
-                    text="value: Measure Diameter;
-                        color: red;
-                        side: front;
-                        opacity: 1;" 
-                    scale="5 5 5" 
-                    position="1 0 -2" 
-                    rotation="-90 0 90">
-                </a-entity>
+                <a-entity id="parentMessage">
+                    <a-entity id="front_diameter_msg" 
+                        text="value: Measure Diameter;
+                            color: red;
+                            side: front;
+                            opacity: 1;" 
+                        scale="5 5 5" 
+                        position="1 0 -2" 
+                        rotation="-90 0 90">
+                    </a-entity>
 
-                <a-entity class="the_word_front" 
-                    text="
-                        value: Measure Flatness;
-                        color: yellow;
-                        side: front;
-                        opacity: 1;" 
-                    scale="5 5 5" 
-                    position="1.5 0 -2" 
-                    rotation="-90 0 90">
-                </a-entity>
+                    <a-entity id="front_flatness_msg" 
+                        text="
+                            value: Measure Flatness;
+                            color: yellow;
+                            side: front;
+                            opacity: 1;" 
+                        scale="5 5 5" 
+                        position="1.5 0 -2" 
+                        rotation="-90 0 90">
+                    </a-entity>
 
-                <a-entity id="the_word_back" 
-                    text="
-                        value: Measure Diameter;
-                        color: blue;
-                        side: front;
-                        opacity: 0;" 
-                    scale="5 5 5" 
-                    position="1 0 -2" 
-                    rotation="-90 0 90">
+                    <a-entity id="back_diameter_msg" 
+                        text="
+                            value: Measure Diameter;
+                            color: blue;
+                            side: front;
+                            opacity: 0;" 
+                        scale="5 5 5" 
+                        position="1 0 -2" 
+                        rotation="-90 0 90">
+                    </a-entity>
                 </a-entity>
 
             </a-entity>
