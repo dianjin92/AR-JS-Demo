@@ -4,6 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
+    <!-- Debugger tool for mobile -->
     <!--
     <script src="//cdn.jsdelivr.net/npm/eruda"></script>
     <script>
@@ -12,77 +13,72 @@
     </script>
     -->
 
+    <!-- Used for geometry, a-scene -->
     <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
-
+    <!-- Used for a-marker -->
     <script src="https://rawgit.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
+    <!-- Used for retriving Object3D properties -->
     <script src="https://google-ar.github.io/three.ar.js/dist/three.ar.js"></script>
-    <!-- <script src="https://threejs.org/build/three.js"></script> -->
-    
-    <!-- <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script> -->
-
+    <!-- Used for scrolling related stuff -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
-
+    <!-- Contains components registered -->
     <script src="index.js"></script>
     
-    <!-- <script src="aframe-material.js"></script> -->
-    <!-- <script type="text/javascript">
-        AFRAME.ASSETS_PATH = "./assets";
-    </script> -->
 </head>
 
 <body style='margin : 0px; overflow: hidden;'>
 
-    <a-scene onload_activity list_properties ar embedded vr-mode-ui="enabled: false" arjs='trackingMethod: best; sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
+    <a-scene id="theScene"
+        vr-mode-ui="
+            enabled: false" 
+        arjs='
+            trackingMethod: best; 
+            sourceType: webcam; 
+            debugUIEnabled: false; 
+            detectionMode: mono_and_matrix; 
+            matrixCodeType: 3x3;'
+        list_properties_component-on>
 
         <a-assets>
             <a-asset-item id="sta" src="model/example.gltf"></a-asset-item>
         </a-assets>
 
-
-        <a-entity 
-            id="ourCamera" 
+        <a-entity id="theCamera" 
             camera 
-            position="0 0 0">
-
-            <a-entity 
-                cursor="rayOrigin: mouse" 
-                raycaster="
-                objects: .clickable; 
-                showLine: false;" >
-            </a-entity>
-            
+            position="0 0 0"
+            cursor="rayOrigin: mouse" 
+            raycaster="
+            objects: .clickable; 
+            showLine: false;" >            
         </a-entity>
 
 
-        <a-marker id="the-barcode" 
-            cursor="rayOrigin: mouse" 
-            raycaster="
-                objects: .clickable; 
-                showLine: false;" 
+        <a-marker id="the-barcode"
             class="not_clickable" 
             emitevents="true" 
             type="barcode" 
             value="6"
-            track_marker>
+            track_marker_component-on>
 
-            <a-entity id="testingZoom" pinch-zoom-component>
+            <a-entity id="zoomArea" 
+                pinch_scroll_zoom_component-on>
 
                 <a-entity id="parentBox" 
                     geometry="primitive: box; width: 1; height: 1; depth: 1" 
-                    class="not_clickable" 
-                    raycaster-listen 
-                    click_component 
-                    check_size
-                    swipe-rotate-component
-                     material="
+                    class="not_clickable"
+                    material="
                         opacity: 0; 
-                        color: blue;">
+                        color: blue;"
+                    click_component-on
+                    pan_rotate_component-off
+                    swipe_rotate_component-on
+                    raycaster_listen_component-off>
 
                     <a-entity id="STA_Model" 
                         gltf-model="#sta" 
-                        class="clickable" 
-                        resize='axis:x; value: 1;' 
-                        position="0 -0.25 0">
+                        class="clickable"
+                        position="0 -0.25 0"
+                        resize_component-on='axis:x; value: 1;'>
                     </a-entity>
 
                     <a-entity id="top_Diameter" 
@@ -100,7 +96,8 @@
 
                     <a-entity id="top_Flatness" 
                         geometry="primitive: ring; radiusInner: 0.35; radiusOuter: 1.145" 
-                        class="clickable" scale="0.20 0.20 0.20" 
+                        class="clickable" 
+                        scale="0.20 0.20 0.20" 
                         position="0 0.35 0" 
                         rotation="90 0 0" 
                         material="
