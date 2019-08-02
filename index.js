@@ -2,6 +2,12 @@ const pan_angle = 1;
 const minScale = 1;
 const maxScale = 5;
 
+let GLOBALV_theReadings = {
+    top_Diameter: null,
+    top_Flatness: null,
+    bottom_Diameter: null
+};
+
 AFRAME.registerComponent('track_marker_component-on', {
     init: function () {
         let theSceneElement = this.el;
@@ -63,23 +69,67 @@ AFRAME.registerComponent("click_component-on", {
         // retrieving the model by its ID
         theElement = document.querySelector("#" + this.el.id);
 
-
+        // click type events
         theElement.addEventListener("click", function (theEvent) {
-            console.log("Item Clicked:\n", theEvent.target.id, "\n\nProperties:\n", theEvent);
+            // console.log("Item Clicked:\n", theEvent.target.id, "\n\nProperties:\n", theEvent);
             // console.log(
             // "\n\nItem clicked: " +
             //     theEvent.target.id +
             //     "\n\ntheEvent: ", theEvent,
             //     "\n\n3D Properties: ", document.querySelector("#" + theEvent.target.id).object3D,
             //     "\n\ntheElement: ", document.querySelector("#" + theEvent.target.id));
+            // alert("Clicked: " + theEvent.target.id);
 
             // Example of setAttribute()
             // document.querySelector("#" + theEvent.target.id).setAttribute('material', 'visible', 'false');
+
+            // if object clicked is input type:
+            if(theEvent.target.classList.contains("inputType")){
+                console.log("asking user for input", theEvent.target.id, typeof(theEvent.target.id));
+                  
+                GLOBALV_theReadings[theEvent.target.id] = prompt("Enter a value:");
+            }
+
+            // if object clicked is button:
+            if(theEvent.target.classList.contains("buttonType")){
+                console.log("setting button to gray");
+                theEvent.target.setAttribute('material', 'color', 'gray');
+            
+                setTimeout(changeColorToBlack, 25, theEvent.target);
+
+                alert("Bottom Diameter:\n" + GLOBALV_theReadings.bottom_Diameter + "\n" +
+                      "Top Diameter:\n" + GLOBALV_theReadings.top_Diameter + "\n" + 
+                      "Top Flatness:\n" + GLOBALV_theReadings.top_Flatness) + "\n" +
+                      "Are these values correct?";
+
+
+                msg = GLOBALV_theReadings;
+                document.cookie = "msg=" + msg + "; expires=whenever;path=/";
+                console.log("document.cookie is:", document.cookie);
+                window.history.back();
+            }
+            
+        });
+    
+        // mouse enter type events
+        theElement.addEventListener("mouseenter", function (theEvent) {
+              console.log("mouse entered:", theEvent.target.id);
+              
+              if(theEvent.target.classList.contains("buttonType") && theEvent.type == "mouseenter"){
+                console.log("mouse entered:", theEvent);
+                theEvent.target.setAttribute('material', 'color', 'gray')
+
+                theEvent.target.addEventListener("mouseleave", function(theEvent){
+                    theEvent.target.setAttribute('material', 'color', 'black')
+                
+                });
+              }
+
         });
 
-        theElement.addEventListener("mouseenter", function (theEvent) {
-            //   console.log("mouse entered:", theEvent.target.id);
-              console.log("mouse entered:", theEvent.target);
+        // mouse down type events
+        theElement.addEventListener("mousedown", function (theEvent) {
+              
               if(theEvent.target.classList.contains("buttonType")){
                 theEvent.target.setAttribute('material', 'color', 'gray')
 
@@ -92,6 +142,11 @@ AFRAME.registerComponent("click_component-on", {
         });
     }
 });
+
+function changeColorToBlack(target) {
+    console.log("setting button to black now");
+    target.setAttribute('material', 'color', 'black');
+}
 
 
 AFRAME.registerComponent('raycaster_listen_component-on', {
@@ -236,14 +291,14 @@ AFRAME.registerComponent("swipe_rotate_component-on", {
                 fronttext_2.setAttribute("text", "opacity", "1");
 
                 frontindicator_1.setAttribute("material", "visible", "true");
-                frontindicator_1.setAttribute("material", "opacity", "1");
+                frontindicator_1.setAttribute("material", "opacity", "0.3");
                 frontindicator_2.setAttribute("material", "visible", "true");
-                frontindicator_2.setAttribute("material", "opacity", "1");
+                frontindicator_2.setAttribute("material", "opacity", "0.3");
 
             } else if (getModelFace(rotation.x, rotation.z, true) == 2) {
                 backtext.setAttribute("text", "opacity", "1");
                 backindicator.setAttribute("material", "visible", "true");
-                backindicator.setAttribute("material", "opacity", "1");
+                backindicator.setAttribute("material", "opacity", "0.3");
 
             } else {
                 fronttext_1.setAttribute("text", "opacity", "0");

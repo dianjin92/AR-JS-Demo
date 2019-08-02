@@ -70,8 +70,8 @@
                         opacity: 0; 
                         color: blue;"
                     click_component-on
-                    pan_rotate_component-on
-                    swipe_rotate_component-off
+                    pan_rotate_component-off
+                    swipe_rotate_component-on
                     raycaster_listen_component-off>
 
                     <a-entity id="STA_Model" 
@@ -83,12 +83,12 @@
 
                     <a-entity id="top_Diameter" 
                         geometry="primitive: circle; radius: 0.29" 
-                        class="clickable" 
+                        class="clickable inputType" 
                         scale="0.25 0.25 0.25" 
-                        position="0 0.35 0" 
+                        position="0 0.30 0" 
                         rotation="90 0 0" 
                         material="
-                            opacity: 1;
+                            opacity: 0.3;
                             color: red;
                             side: back;
                             visible: true;">
@@ -96,20 +96,20 @@
 
                     <a-entity id="top_Flatness" 
                         geometry="primitive: ring; radiusInner: 0.35; radiusOuter: 1.145" 
-                        class="clickable" 
+                        class="clickable inputType" 
                         scale="0.20 0.20 0.20" 
-                        position="0 0.35 0" 
+                        position="0 0.33 0" 
                         rotation="90 0 0" 
                         material="
-                            opacity: 1;
-                            color: yellow;
+                            opacity: 0.3;
+                            color: green;
                             side: back;
                             visible: true;">
                     </a-entity>
 
                     <a-entity id="bottom_Diameter" 
                         geometry="primitive: circle; radius: 0.29" 
-                        class="clickable" 
+                        class="clickable inputType" 
                         scale="0.25 0.25 0.25" 
                         position="0 -0.34 0" 
                         rotation="90 0 0" 
@@ -122,6 +122,7 @@
                 </a-entity>
 
                 <a-entity id="parentMessage">
+
                     <a-entity id="front_diameter_msg" 
                         text="value: Measure Diameter;
                             color: red;
@@ -135,7 +136,7 @@
                     <a-entity id="front_flatness_msg" 
                         text="
                             value: Measure Flatness;
-                            color: yellow;
+                            color: green;
                             side: front;
                             opacity: 1;" 
                         scale="5 5 5" 
@@ -152,6 +153,35 @@
                         scale="5 5 5" 
                         position="1 0 -2" 
                         rotation="-90 0 90">
+                    </a-entity>
+                </a-entity>
+
+                <a-entity id="submitContainer"
+                    scale="1 1 1" 
+                    position="1 0 -2.5" 
+                    rotation="-90 0 90"
+                    click_component-on>
+
+                    <a-entity id="submitButton"
+                        geometry="primitive: plane; height: 0.5; width: 1"
+                        material="
+                            opacity: 0.5;
+                            color: black;
+                            side: both;
+                            visible: true;"
+                        class="clickable buttonType">
+                    </a-entity>
+
+                    <a-entity id="submitWord" 
+                        text="
+                            value: Submit;
+                            color: white;
+                            side: both;
+                            opacity: 1;
+                            width: 5;"
+                        position="2 0 0.1"
+                        class="not_clickable">
+                        
                     </a-entity>
                 </a-entity>
 
