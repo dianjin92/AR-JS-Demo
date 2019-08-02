@@ -78,7 +78,17 @@ AFRAME.registerComponent("click_component-on", {
         });
 
         theElement.addEventListener("mouseenter", function (theEvent) {
-              console.log("mouse entered:", theEvent.target.id);
+            //   console.log("mouse entered:", theEvent.target.id);
+              console.log("mouse entered:", theEvent.target);
+              if(theEvent.target.classList.contains("buttonType")){
+                theEvent.target.setAttribute('material', 'color', 'gray')
+
+                theEvent.target.addEventListener("mouseleave", function(theEvent){
+                    theEvent.target.setAttribute('material', 'color', 'black')
+                
+                });
+              }
+
         });
     }
 });

@@ -122,6 +122,7 @@
                 </a-entity>
 
                 <a-entity id="parentMessage">
+
                     <a-entity id="front_diameter_msg" 
                         text="value: Measure Diameter;
                             color: red;
@@ -152,6 +153,35 @@
                         scale="5 5 5" 
                         position="1 0 -2" 
                         rotation="-90 0 90">
+                    </a-entity>
+                </a-entity>
+
+                <a-entity id="submitContainer"
+                    scale="1 1 1" 
+                    position="1 0 -2.5" 
+                    rotation="-90 0 90"
+                    click_component-on>
+
+                    <a-entity id="submitButton"
+                        geometry="primitive: plane; height: 0.5; width: 1"
+                        material="
+                            opacity: 0.5;
+                            color: black;
+                            side: both;
+                            visible: true;"
+                        class="clickable buttonType">
+                    </a-entity>
+
+                    <a-entity id="submitWord" 
+                        text="
+                            value: Submit;
+                            color: white;
+                            side: both;
+                            opacity: 1;
+                            width: 5;"
+                        position="2 0 0.1"
+                        class="not_clickable">
+                        
                     </a-entity>
                 </a-entity>
 
